@@ -4,13 +4,14 @@ include_once "../api/class/users.php";
 include "../api/function.php";
 include "../global/session.php";
 
-$modeStream = false;
-
 if (!empty($_SESSION['userConnected'])){
 
     // SET USER
     $user = $_SESSION['userConnected'];
 
+    if (empty($_SESSION['modeStream'])){
+        $_SESSION['modeStream'] = "false";
+    }
 
     // TASK
     if (!empty($_GET['task'])){
@@ -29,10 +30,10 @@ if (!empty($_SESSION['userConnected'])){
 
         if ($task == "modestream"){
 
-            if ($modeStream == true){
-                $modeStream = false;
-            } else {
-                $modeStream = true;
+            if ($_SESSION['modeStream'] === "true"){
+                $_SESSION['modeStream'] = "false";
+            }else if ($_SESSION['modeStream'] === "false"){
+                $_SESSION['modeStream'] = "true";
             }
 
         }
@@ -63,7 +64,13 @@ if (!empty($_SESSION['userConnected'])){
 
     header("location: ../index.php");
 
-} ?>
+}
+
+
+//var_dump($_SESSION['modeStream']);
+
+
+?>
 
 
 
@@ -132,102 +139,26 @@ if (!empty($_SESSION['userConnected'])){
                                 <span class="menu-icon">
                                   <i class="ri-vip-diamond-fill"></i>
                                 </span>
-                                            <span class="menu-title">Exemple</span>
+                                            <span class="menu-title">Sponsoring</span>
                                             <span class="menu-suffix">
-                                  <span class="badge primary">Hot</span>
+                                  <span class="badge primary">Soon</span>
                                 </span>
                             </a>
                             <div class="sub-menu-list">
                                 <ul>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">Grid</span>
+                                            <span class="menu-title">Explications</span>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">Layout</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item sub-menu">
-                                        <a href="#">
-                                            <span class="menu-title">Forms</span>
-                                        </a>
-                                        <div class="sub-menu-list">
-                                            <ul>
-                                                <li class="menu-item">
-                                                    <a href="#">
-                                                        <span class="menu-title">Input</span>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a href="#">
-                                                        <span class="menu-title">Select</span>
-                                                    </a>
-                                                </li>
-                                                <li class="menu-item sub-menu">
-                                                    <a href="#">
-                                                        <span class="menu-title">More</span>
-                                                    </a>
-                                                    <div class="sub-menu-list">
-                                                        <ul>
-                                                            <li class="menu-item">
-                                                                <a href="#">
-                                                                    <span class="menu-title">CheckBox</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="menu-item">
-                                                                <a href="#">
-                                                                    <span class="menu-title">Radio</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="menu-item sub-menu">
-                                                                <a href="#">
-                                                                    <span class="menu-title">Want more ?</span>
-                                                                    <span class="menu-suffix">&#x1F914;</span>
-                                                                </a>
-                                                                <div class="sub-menu-list">
-                                                                    <ul>
-                                                                        <li class="menu-item">
-                                                                            <a href="#">
-                                                                                <span class="menu-prefix">&#127881;</span>
-                                                                                <span class="menu-title">You made it </span>
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item sub-menu">
-                            <a href="#">
-                    <span class="menu-icon">
-                      <i class="ri-bar-chart-2-fill"></i>
-                    </span>
-                                <span class="menu-title">Exemple</span>
-                            </a>
-                            <div class="sub-menu-list">
-                                <ul>
-                                    <li class="menu-item">
-                                        <a href="#">
-                                            <span class="menu-title">Pie chart</span>
+                                            <span class="menu-title">Sponsor</span>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">Line chart</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#">
-                                            <span class="menu-title">Bar chart</span>
+                                            <span class="menu-title">Overlays</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -236,47 +167,25 @@ if (!empty($_SESSION['userConnected'])){
                         <li class="menu-item sub-menu">
                             <a href="#">
                     <span class="menu-icon">
-                      <i class="ri-shopping-cart-fill"></i>
+                      <i class="ri-link"></i>
                     </span>
-                                <span class="menu-title">Exemple</span>
+                                <span class="menu-title">Ressource</span>
                             </a>
                             <div class="sub-menu-list">
                                 <ul>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">Products</span>
+                                            <span class="menu-title">Réseaux Sociaux</span>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">Orders</span>
+                                            <span class="menu-title">Assets</span>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="#">
-                                            <span class="menu-title">credit card</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item sub-menu">
-                            <a href="#">
-                    <span class="menu-icon">
-                      <i class="ri-global-fill"></i>
-                    </span>
-                                <span class="menu-title">Exemple</span>
-                            </a>
-                            <div class="sub-menu-list">
-                                <ul>
-                                    <li class="menu-item">
-                                        <a href="#">
-                                            <span class="menu-title">Google maps</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#">
-                                            <span class="menu-title">Open street map</span>
+                                            <span class="menu-title">Overlays</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -291,11 +200,13 @@ if (!empty($_SESSION['userConnected'])){
                             </a>
                             <div class="sub-menu-list">
                                 <ul>
-                                    <li class="menu-item">
-                                        <a href="#">
-                                            <span class="menu-title">Edit</span>
-                                        </a>
-                                    </li>
+                                    <?php if ($_SESSION['modeStream'] === "false"){?>
+                                        <li class="menu-item">
+                                            <a href="#">
+                                                <span class="menu-title">Edit</span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                     <li class="menu-item">
                                         <a href="?task=loggout">
                                             <span class="menu-title">Deconnexion</span>
@@ -316,7 +227,7 @@ if (!empty($_SESSION['userConnected'])){
                     </span>
                                 <span class="menu-title">Mode Streamer</span>
                                 <span class="menu-suffix">
-                                <?php if ($modeStream == true){ ?>
+                                <?php if ($_SESSION['modeStream'] == "true"){ ?>
 
                                     <span class="badge secondary"><i class="ri-eye-off-line"></i></span>
 
@@ -328,6 +239,7 @@ if (!empty($_SESSION['userConnected'])){
                     </span>
                             </a>
                         </li>
+                        <?php if ($_SESSION['modeStream'] === "false"){?>
                         <li class="menu-item">
                             <a href="#">
                     <span class="menu-icon">
@@ -336,6 +248,7 @@ if (!empty($_SESSION['userConnected'])){
                                 <span class="menu-title">Contrat/Terms</span>
                             </a>
                         </li>
+                        <?php } ?>
                         <li class="menu-item">
                             <a target="_blank" href="https://tyrolium.fr">
                     <span class="menu-icon">
