@@ -44,17 +44,21 @@ if (!empty($_SESSION['userConnected'])){
 
 
 
-        $page = $_GET['page'];
+//        $page = $_GET['page'];
 
-//        if ($_GET['page'] == "home"){
-//
-//            $page = $_GET['page'] . ".phtml";
-//
-//        } else {
-//
-//            $page = "404" . ".phtml";
-//
-//        }
+        if ($_GET['page'] == "home"){
+
+            $page = $_GET['page'];
+
+        } else if ($_GET['page'] == "agenda"){
+
+            $page = $_GET['page'];
+
+        } else {
+
+            $page = "404";
+
+        }
 
     } else {
         $page = "home";
