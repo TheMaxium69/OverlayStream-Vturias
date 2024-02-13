@@ -1,33 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Overlays</title>
-</head>
-<body>
-<main>
+<?php
 
+include "../api/function.php";
+include "../api/class/users.php";
 
+$err = "no";
+if (!empty($_GET['id'])){
 
-</main>
+    $userID = $_GET['id'];
+    $user = userById($userID);
 
-
-
-<style>
-
-
-
-    main{
-
-        width: 800px;
-        height: 600px;
-        background-color: red;
-
+    if ($user === false){
+        $err = "true";
     }
 
 
 
-</style>
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+} else {
+    $err = "true";
+}
+
+if ($err === "no"){
+
+    if (!empty($_GET['width'])){
+        $width = $_GET['width'];
+    } else {
+        $width = "800";
+    }
+    if (!empty($_GET['height'])){
+        $height = $_GET['height'];
+    } else {
+        $height = "600";
+    }
+
+    require_once "overlays.phtml";
+
+} else {
+    echo "<h1>Err 404</h1>";
+}

@@ -10,7 +10,8 @@ function login($emailForm, $passwdForm){
     $requeteUserEmail->execute([
         ":email" => $emailForm
     ]);
-    $userWithEmail = $requeteUserEmail->fetch();
+    $userWithEmail = $requeteUserEmail->fetch()
+    ;
 
     if ($userWithEmail){
 
@@ -63,4 +64,25 @@ function chiffreMDP($passwd){
 
     return $passwdEnCrypt_S3;
 
+}
+
+function userById($id){
+
+    include "security/db.php";
+
+    $requeteUserID = $db->prepare("SELECT * FROM `users` WHERE `id`=:id;  ");
+    $requeteUserID->execute([
+        ":id" => $id
+    ]);
+    $userWithId = $requeteUserID->fetch();
+
+    if ($userWithId){
+
+        $userBDD = new Users();
+        $userBDD->setUser($userWithId);
+    } else {
+        $userBDD = false;
+    }
+
+    return $userBDD;
 }

@@ -1,0 +1,61 @@
+
+<article id="p1">
+
+    <h1>Partenaire 1</h1>
+
+</article>
+
+<article id="p2">
+
+    <h1>Partenaire 2</h1>
+
+</article>
+
+
+
+<style>
+
+    article{
+        width: <?= $width ?>px;
+        height: <?= $height ?>px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+
+    #p1{
+
+        background-color: red;
+
+    }
+
+    #p2{
+        background-color: blue;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+</style>
+
+<script>
+    var p1 = document.getElementById('p1');
+    var p2 = document.getElementById('p2');
+
+    function switchArticles() {
+        if (p1.style.opacity === '' || p1.style.opacity === '1') {
+            p1.style.opacity = '0';
+            p2.style.opacity = '1';
+            p2.style.pointerEvents = 'auto';
+            p1.style.pointerEvents = 'none';
+        } else {
+            p1.style.opacity = '1';
+            p2.style.opacity = '0';
+            p1.style.pointerEvents = 'auto';
+            p2.style.pointerEvents = 'none';
+        }
+    }
+
+    setInterval(switchArticles, 10000);
+</script>

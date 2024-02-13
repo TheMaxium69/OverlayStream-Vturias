@@ -7,7 +7,12 @@ include "../global/session.php";
 if (!empty($_SESSION['userConnected'])){
 
     // SET USER
-    $user = $_SESSION['userConnected'];
+    $userSession = $_SESSION['userConnected'];
+    $userID = $userSession->id;
+    $user = userById($userID);
+    if ($user === false){
+        exit();
+    }
 
     if (empty($_SESSION['modeStream'])){
         $_SESSION['modeStream'] = "false";
@@ -51,6 +56,10 @@ if (!empty($_SESSION['userConnected'])){
             $page = $_GET['page'];
 
         } else if ($_GET['page'] == "agenda"){
+
+            $page = $_GET['page'];
+
+        } else  if ($_GET['page'] == "sponso_overlay"){
 
             $page = $_GET['page'];
 
@@ -161,7 +170,7 @@ if (!empty($_SESSION['userConnected'])){
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="#">
+                                        <a href="?page=sponso_overlay">
                                             <span class="menu-title">Overlays</span>
                                         </a>
                                     </li>
