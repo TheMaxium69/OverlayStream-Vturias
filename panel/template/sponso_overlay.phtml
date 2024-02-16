@@ -15,27 +15,25 @@
 
     <h3>
         Lien de l'overlays:
-    </h3><br>
-
+    </h3>
+    <br>
 
 <?php if ($_SESSION['modeStream'] === "true"){ ?>
     <a>
-   https://*****.**/********/?**=***&<span id="dimensionsOutput">width=800&height=600</span>
-
+        https://*****.**/********/?**=***&<span id="dimensionsOutput">width=800&height=600</span>
     </a>
 <?php } else { ?>
     <a id="linkOver" href="<?= $_SERVER['REQUEST_SCHEME']?>://<?= $_SERVER['HTTP_HOST']?>/OverlayStream-Vturias/overlay/?id=<?= $user->id ?>&" data-url="<?= $_SERVER['REQUEST_SCHEME']?>://<?= $_SERVER['HTTP_HOST']?>/OverlayStream-Vturias/overlay/?id=<?= $user->id ?>&">
-
         <?= $_SERVER['REQUEST_SCHEME']?>://<?= $_SERVER['HTTP_HOST']?>/overlay/?id=<?= $user->id ?>&<span id="dimensionsOutput">width=800&height=600</span>
-
     </a>
 <?php }?>
     <br><br>
 
     <iframe
-            style="border: unset;width: 100%;height: 700px"
-            src="../overlay/?width=800&height=600&id=<?= $user->id ?>"
-    ></iframe>
+        style="border: unset;width: 100%;height: 700px"
+        src="../overlay/?width=800&height=600&id=<?= $user->id ?>"
+    >
+    </iframe>
 
 
 </article>
