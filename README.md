@@ -1,2 +1,2 @@
-# OverlayStream-Vturias
-App Php, Overlays Publicitaire Pour le projet Vturias
+# PanelArtiste-Vturias
+App Php, Panel Artiste Pour le projet Vturias
