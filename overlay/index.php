@@ -13,22 +13,11 @@ if (!empty($_GET['id'])){
         $err = "true";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 } else {
     $err = "true";
 }
+
+
 
 if ($err === "no"){
 
@@ -43,7 +32,21 @@ if ($err === "no"){
         $height = "600";
     }
 
-    require_once "overlays.phtml";
+    if (!empty($_GET['preview'])){
+
+        $idSponsorPreview = $_GET['preview'];
+
+        require_once "../api/class/sponso.php";
+        $sponso = getSponsoById($idSponsorPreview);
+
+        require_once "preview.phtml";
+
+    } else {
+
+        $showSponsoAll = getShowSponsoToUser($user->id);
+
+        require_once "overlays.phtml";
+    }
 
 } else {
     echo "<h1>Err 404</h1>";

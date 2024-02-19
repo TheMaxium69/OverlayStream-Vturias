@@ -1,14 +1,12 @@
 <?php
 
-class Sponso {
+class Sponso_Vers_User {
 
     public $id;
-    public $name;
-    public $content;
-    public $command;
-    public $styleUrl;
-    public $isBlocked;
-    private $createdAt;
+    public $idUser;
+    public $idSponso;
+    public $isActivate;
+    private $addedAt;
 
     public function setUser($user){
         $this->id = $user['id'];

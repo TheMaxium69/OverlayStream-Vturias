@@ -1,15 +1,28 @@
+<?php
 
-<article id="p1">
+global $showSponsoAll;
+global $width;
+global $height;
 
-    <h1>Partenaire 1</h1>
+?>
 
-</article>
 
-<article id="p2">
+<?php
+if ($showSponsoAll){
 
-    <h1>Partenaire 2</h1>
+    $i = 0;
+    foreach ($showSponsoAll as $sponso){
+        $i++
+?>
 
-</article>
+        <link rel='stylesheet' href='<?= $sponso->styleUrl . "/" . $sponso->styleUrl . ".css" ?>'>
+        <article class="article <?php if ($i == 1){ echo "visible"; } ?>" id="<?= $sponso->styleUrl ?>">
+
+            <?php require_once $sponso->styleUrl . "/" . $sponso->styleUrl . ".phtml"; ?>
+
+        </article>
+
+<?php } } ?>
 
 
 
@@ -22,39 +35,34 @@
         top: 0;
         left: 0;
         transition: opacity 1s ease-in-out;
+        /*background-color: red;*/
     }
 
-
-    #p1{
-
-        background-color: red;
-
-    }
-
-    #p2{
-        background-color: blue;
+    .article {
         opacity: 0;
-        pointer-events: none;
+    }
+
+    .visible {
+        opacity: 1;
+        pointer-events: auto;
     }
 
 </style>
 
 <script>
-    var p1 = document.getElementById('p1');
-    var p2 = document.getElementById('p2');
+    var articles = document.querySelectorAll('.article');
+    var currentArticleIndex = 0;
 
     function switchArticles() {
-        if (p1.style.opacity === '' || p1.style.opacity === '1') {
-            p1.style.opacity = '0';
-            p2.style.opacity = '1';
-            p2.style.pointerEvents = 'auto';
-            p1.style.pointerEvents = 'none';
-        } else {
-            p1.style.opacity = '1';
-            p2.style.opacity = '0';
-            p1.style.pointerEvents = 'auto';
-            p2.style.pointerEvents = 'none';
-        }
+        articles.forEach((article, index) => {
+            if (index === currentArticleIndex) {
+                article.classList.add('visible');
+            } else {
+                article.classList.remove('visible');
+            }
+        });
+
+        currentArticleIndex = (currentArticleIndex + 1) % articles.length;
     }
 
     setInterval(switchArticles, 10000);

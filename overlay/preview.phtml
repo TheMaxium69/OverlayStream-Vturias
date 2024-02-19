@@ -1,0 +1,40 @@
+<?php
+
+global $sponso;
+global $width;
+global $height;
+
+?>
+
+
+<?php if ($sponso){ ?>
+
+        <link rel='stylesheet' href='<?= $sponso->styleUrl . "/" . $sponso->styleUrl . ".css" ?>'>
+        <article class="article" id="<?= $sponso->styleUrl ?>">
+
+            <?php require_once $sponso->styleUrl . "/" . $sponso->styleUrl . ".phtml"; ?>
+
+        </article>
+
+<?php } ?>
+
+
+
+<style>
+
+    article{
+        width: <?= $width ?>px;
+        height: <?= $height ?>px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 1s ease-in-out;
+        /*background-color: red;*/
+    }
+
+    .article {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+</style>

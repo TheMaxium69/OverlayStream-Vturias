@@ -1,0 +1,162 @@
+<?php global $user;
+
+if (!empty($_POST['sponoversuserID']) && !empty($_POST['sponsoID']) && !empty($_POST['userID']) && !empty($_POST['task'])){
+
+    $sponoversuserID = $_POST['sponoversuserID'];
+    $sponsoID = $_POST['sponsoID'];
+    $userID = $_POST['userID'];
+    $task = $_POST['task'];
+
+    if ($sponoversuserID == "none"){ createSponsoToUser($userID,$sponsoID,$task); } else { updateSponsoToUser($sponoversuserID,$task); }
+
+}
+
+?>
+
+<article class="content-article" style="height: 80%; margin-bottom: 60px">
+    <h1>
+        Ici vous allez pouvoir gerez vos sponsor
+    </h1>
+    <br><br>
+    <div>
+        <table border="1" style="width: 100%;color: black;  background: #78ffff;">
+            <thead>
+            <tr style="background-color: rgb(251, 59, 203);text-align: center">
+                <th style="width: 5%">View</th>
+                <th style="width: 10%">Nom</th>
+                <th style="width: 30%">Description</th>
+                <th style="width: 20%">Commande Obligatoire</th>
+                <th style="width: 10%">Active</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+                $sponsoAll = getSponsoAllTrie();
+                $sponsoUserActivate = isActivateSponso($user->id);
+
+                foreach ($sponsoAll as $sponso){
+            ?>
+                <tr class="<?php if ($sponso->isBlocked == 1){ echo "block"; } else if($sponso->isBlocked == 2) { echo "lock"; } ?>">
+                    <td style="padding: 10px">
+
+                        <?php if ($sponso->isBlocked == 2){ ?>
+
+                            <div style="margin: 25%;"><i class="ri-close-line"></i></div>
+
+                        <?php } else { ?>
+                            <div style="margin: 25%;" onclick="window.location.href = '../overlay/?id=1&preview=<?= $sponso->id ?>';"><i class="ri-eye-line"></i></div>
+                        <?php } ?>
+                    </td>
+                    <td style="padding: 10px"><?= $sponso->name ?></td>
+                    <td style="padding: 10px"><?= $sponso->content ?></td>
+                    <td style="padding: 10px; text-align: center"><?= $sponso->command ?></td>
+                    <?php if ($sponso->isBlocked == 1){ ?>
+                    <td style="padding: 10px">
+                        <div style="margin: 15%;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked disabled>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <?php } else if($sponso->isBlocked == 2) { ?>
+                    <td style="padding: 10px">
+                        <div style="margin: 15%;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                    SOON
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <?php } else {
+
+                        $thisSponsoActivate = null;
+                        $isExiste = "0";
+                        foreach ( $sponsoUserActivate as $oneSponsoActivate){
+
+                            if ($oneSponsoActivate->idSponso == $sponso->id){
+                                $isExiste = "1";
+                                $thisSponsoActivate = $oneSponsoActivate;
+                            }
+
+                        }
+
+                        if ($isExiste == 1){ ?>
+
+                            <td style="padding: 10px">
+                                <div style="margin: 15%;">
+                                    <form class="form-check" method="POST">
+                                        <?php if ($thisSponsoActivate->isActivate == "1"){ ?>
+                                            <input type="hidden" name="sponoversuserID" value="<?= $thisSponsoActivate->id ?>" >
+                                            <input type="hidden" name="sponsoID" value="<?= $sponso->id ?>" >
+                                            <input type="hidden" name="userID" value="<?= $user->id ?>" >
+                                            <input type="hidden" name="task" value="desactive">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckChecked" onclick="submitForm(this)" checked>
+                                            <label class="form-check-label" for="flexCheckChecked">
+                                                Activé
+                                            </label>
+                                        <?php } else { ?>
+                                            <input type="hidden" name="sponoversuserID" value="<?= $thisSponsoActivate->id ?>" >
+                                            <input type="hidden" name="sponsoID" value="<?= $sponso->id ?>" >
+                                            <input type="hidden" name="userID" value="<?= $user->id ?>" >
+                                            <input type="hidden" name="task" value="activate">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckCheckedDisabled" onclick="submitForm(this)">
+                                            <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                                Desactivé
+                                            </label>
+                                        <?php } ?>
+                                    </form>
+                                </div>
+                            </td>
+
+
+                        <?php } else { ?>
+
+                            <td style="padding: 10px">
+                                <div style="margin: 15%;">
+                                    <form class="form-check" method="POST">
+                                        <input type="hidden" name="sponoversuserID" value="none" >
+                                        <input type="hidden" name="sponsoID" value="<?= $sponso->id ?>" >
+                                        <input type="hidden" name="userID" value="<?= $user->id ?>" >
+                                        <input type="hidden" name="task" value="activate">
+                                        <input class="form-check-input" type="checkbox" id="flexCheckCheckedDisabled" onclick="submitForm(this)">
+                                        <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                            Desactivé
+                                        </label>
+                                    </form>
+                                </div>
+                            </td>
+
+                        <?php } ?>
+
+
+                    <?php } ?>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</article>
+
+<script>
+        function submitForm(element) {
+            const form = element.parentNode;
+            form.submit();
+        }
+</script>
+
+<style>
+    tr.block {
+        background-color: #ffffff4f;
+    }
+    tr.lock {
+        background-color: #00000029;
+    }
+</style>

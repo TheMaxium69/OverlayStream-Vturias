@@ -59,7 +59,11 @@ if (!empty($_SESSION['userConnected'])){
 
             $page = $_GET['page'];
 
-        } else  if ($_GET['page'] == "sponso_overlay"){
+        } else  if ($_GET['page'] == "sponso_choose"){
+
+            $page = $_GET['page'];
+
+        } else if ($_GET['page'] == "sponso_overlay"){
 
             $page = $_GET['page'];
 
@@ -165,7 +169,7 @@ if (!empty($_SESSION['userConnected'])){
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="#">
+                                        <a href="?page=sponso_choose">
                                             <span class="menu-title">Sponsor</span>
                                         </a>
                                     </li>
