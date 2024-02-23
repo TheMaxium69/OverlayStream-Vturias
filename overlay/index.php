@@ -39,6 +39,12 @@ if ($err === "no"){
         require_once "../api/class/sponso.php";
         $sponso = getSponsoById($idSponsorPreview);
 
+        if (!empty($_GET['dev'])){
+            $isDev = true;
+        } else {
+            $isDev = false;
+        }
+
         require_once "preview.phtml";
 
     } else {
